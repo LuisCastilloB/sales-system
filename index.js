@@ -1,8 +1,16 @@
 
-import express from 'express';
-import morgan from 'morgan';
-import cors from 'cors';
-import path from 'path';
+import express from 'express'
+import morgan from 'morgan'
+import cors from 'cors'
+import path from 'path'
+import mongoose from 'mongoose'
+
+//DB Connect
+mongoose.Promise = global.Promise
+const dbUrl = "mongodb://localhost:27017/sales-system"
+mongoose.connect(dbUrl, {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true})
+.then(mongoose => console.log('Conneting to DB in port 27017'))
+.catch(err => console.log(err))
 
 const app = express()
 //Allow debug request 
