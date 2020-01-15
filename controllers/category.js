@@ -3,7 +3,7 @@ import models from '../models'
 export default {
     add : async(req, res, next) => {
         try {
-            const reg = await models.Category.create(req.body)
+            const reg = await models.Category.create(req.query)
             res.status(200).json(reg)
         } catch (e) {
             res.status(500).send({

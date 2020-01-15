@@ -22,9 +22,8 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 //Router 
-app.use('/api', router);
-
-
+app.use('/api', router)
+//Set default port
 app.set('port', process.env.PORT || 3000);
 //Configure path for static public files
 app.use(express.static(path.join(__dirname,"public")))
