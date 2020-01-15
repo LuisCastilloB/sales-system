@@ -7,6 +7,6 @@ const categorySchema = new Schema({
     createdAt : {type:Date, default: Date.now}
 })
 
-const Category = moongose.model('category', categorySchema)
+const Category = mongoose.model('category', categorySchema)
 
 export default Category
