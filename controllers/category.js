@@ -14,7 +14,7 @@ export default {
     },
     query : async(req, res, next) => {
         try {
-            const reg = await models.Category.findOne({_id : req.query.__id});
+            const reg = await models.Category.findOne({_id : req.query._id});
             if (reg) {
                 res.status(200).json(reg)
             } else {
@@ -31,7 +31,12 @@ export default {
     },
     list : async(req, res, next) => {
         try {
-            const reg = await models.Category.find({})
+            let value = req.query.value;
+            //Filter and Sort
+            const reg = await models.Category.find(
+                {$or:[{'name': new RegExp(value, 'i')} , {'description':new RegExp(value, 'i')}]}
+                ,{createdAt:0}) // {},{showField:1, hideField:0}
+            .sort({'createdAt':-1}) //Descendent filter -1/ Ascendent 1
             res.status(200).json(reg)
         } catch (e) {
             res.status(500).send({
@@ -42,7 +47,8 @@ export default {
     },
     update : async(req, res, next) => {
         try {
-            const reg = await models.Category.findByIdAndUpdate({_id : req.body._id}, {name : req.body.nombre, desciption : req.body.desciption})
+            console.log(req.body);
+            const reg = await models.Category.findByIdAndUpdate({_id : req.body._id}, {name : req.body.name, description : req.body.description})
             res.status(200).json(reg)
         } catch (e) {
             res.status(500).send({
